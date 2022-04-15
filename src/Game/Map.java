@@ -8,7 +8,22 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.util.ArrayList;
+class Timer extends Thread{
+    long startingTime;
+    boolean running = true;
+    public Timer() {
+       startingTime = System.currentTimeMillis();
+    }
+    public void run() {
+        while(running) {
 
+        }
+    }
+    public void stop2() {
+        running = false;
+        System.out.println("Time Taken: " + (System.currentTimeMillis() - startingTime));
+    }
+}
 public class Map extends JPanel {
     private int playerIndex;
     private double timePerJump;
@@ -42,7 +57,7 @@ public class Map extends JPanel {
         cameraData[2] = mapData.get(2);
         cameraData[3] = mapData.get(3);
         setPreferredSize(new Dimension(cameraData[2], cameraData[3]));
-        // setPreferredSize(new Dimension(1200, 300));
+        //setPreferredSize(new Dimension(1200, 300));
         initGame();
     }
 
@@ -64,10 +79,10 @@ public class Map extends JPanel {
     private void doDrawing(Graphics g) {
 
         if (inGame) {
-            // Color origin = g.getColor();
-            // g.setColor(new Color(255, 255, 255, 127));
-            // g.fillRect(cameraData[0], cameraData[1], cameraData[2], cameraData[3]);
-            // g.setColor(origin);
+//             Color origin = g.getColor();
+//             g.setColor(new Color(255, 255, 255, 127));
+//             g.fillRect(cameraData[0], cameraData[1], cameraData[2], cameraData[3]);
+//             g.setColor(origin);
             renderObjectWithinWindow(g);
             renderObject(g);
             Toolkit.getDefaultToolkit().sync();
@@ -78,36 +93,35 @@ public class Map extends JPanel {
     }
 
     public void updatePlayer() {
-        // boolean updated = false;
-        // for (int i = 0; i != renderedObject.size(); i++) {
-        // if (playerIndex != renderedObject.get(i)) {
-        // if (objectData.get(playerIndex).get(1) + objectData.get(playerIndex).get(3)
-        // == objectData
-        // .get(renderedObject.get(i)).get(1)) {
-        // for (int x = 0; x != objectData.get(playerIndex).get(0) +
-        // objectData.get(playerIndex).get(2); x++) {
-        // if (x < objectData.get(renderedObject.get(i)).get(0)
-        // + objectData.get(renderedObject.get(i)).get(2)
-        // && x >= objectData.get(renderedObject.get(i)).get(0)) {
-        // updated = true;
-        // playerTouchingGround = true;
-        // break;
-        // }
-        // }
-        // }
-        // if (playerTouchingGround && updated)
-        // break;
-        // }
-        // if (!updated)
-        // playerTouchingGround = false;
-        // }
-        // if (!playerTouchingGround && objectData.get(playerIndex).get(5) <= 0 &&
-        // gpLimitReached()) {
-        // objectData.get(playerIndex).set(5, 10);
-        // } else if (playerTouchingGround && objectData.get(playerIndex).get(5) >= 0) {
-        // objectData.get(playerIndex).set(5, 0);
-        // }
-        playerTouchingGround = true;
+        boolean updated = false;
+        for (int i = 0; i != renderedObject.size(); i++) {
+            if (playerIndex != renderedObject.get(i)) {
+                if (objectData.get(playerIndex).get(1) + objectData.get(playerIndex).get(3)
+                        == objectData
+                        .get(renderedObject.get(i)).get(1)) {
+                    for (int x = 0; x != objectData.get(playerIndex).get(0) +
+                            objectData.get(playerIndex).get(2); x++) {
+                        if (x < objectData.get(renderedObject.get(i)).get(0)
+                                + objectData.get(renderedObject.get(i)).get(2)
+                                && x >= objectData.get(renderedObject.get(i)).get(0)) {
+                            updated = true;
+                            playerTouchingGround = true;
+                            break;
+                        }
+                    }
+                }
+                if (playerTouchingGround && updated)
+                    break;
+            }
+            if (!updated)
+                playerTouchingGround = false;
+        }
+        if (!playerTouchingGround && objectData.get(playerIndex).get(5) <= 0 &&
+                gpLimitReached()) {
+            objectData.get(playerIndex).set(5, 10);
+        } else if (playerTouchingGround && objectData.get(playerIndex).get(5) >= 0) {
+            objectData.get(playerIndex).set(5, 0);
+        }
     }
 
     public void moveCamera(String direction, int distance) {
@@ -124,15 +138,15 @@ public class Map extends JPanel {
                 if (cameraData[0] + (objectData.get(playerIndex).get(0) + (objectData.get(playerIndex).get(2) / 2))
                         - (cameraData[0] + (cameraData[2] / 2)) + cameraData[2] < mapData.get(0)
                         && cameraData[0]
-                                + (objectData.get(playerIndex).get(0) + (objectData.get(playerIndex).get(2) / 2))
-                                - (cameraData[0] + (cameraData[2] / 2)) > -1)
+                        + (objectData.get(playerIndex).get(0) + (objectData.get(playerIndex).get(2) / 2))
+                        - (cameraData[0] + (cameraData[2] / 2)) > -1)
                     cameraData[0] += (objectData.get(playerIndex).get(0) + (objectData.get(playerIndex).get(2) / 2))
                             - (cameraData[0] + (cameraData[2] / 2));
                 if (cameraData[1] + (objectData.get(playerIndex).get(1) + (objectData.get(playerIndex).get(3) / 2))
                         - (cameraData[1] + (cameraData[3] / 2)) + cameraData[3] < mapData.get(1)
                         && cameraData[1]
-                                + (objectData.get(playerIndex).get(1) + (objectData.get(playerIndex).get(3) / 2))
-                                - (cameraData[1] + (cameraData[3] / 2)) > -1)
+                        + (objectData.get(playerIndex).get(1) + (objectData.get(playerIndex).get(3) / 2))
+                        - (cameraData[1] + (cameraData[3] / 2)) > -1)
                     cameraData[1] += (objectData.get(playerIndex).get(1) + (objectData.get(playerIndex).get(3) / 2))
                             - (cameraData[1] + (cameraData[3] / 2));
                 break;
@@ -443,7 +457,6 @@ public class Map extends JPanel {
             }
 
         }
-
         return -1;
     }
 }

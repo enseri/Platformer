@@ -63,6 +63,7 @@ public class Game extends JFrame {
     }
 
     void updateGame() {
+        map.updatePlayer();
         map.updateVelocity();
         lastUpd = System.nanoTime();
     }

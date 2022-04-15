@@ -19,7 +19,7 @@ class RegisterThread extends Thread{
         }
         
         else if(key == 38 && !map.playerTouchingGround) {
-            System.out.println("NOT TOUCHING GROUND BOZOOOOOO");
+            System.out.println("not touching ground");
         }
         
         if (key == 39)
