@@ -14,7 +14,7 @@ class RegisterThread extends Thread{
         if (key == 37)
             map.setXVelocity(-10);
         if (key == 38 && map.playerTouchingGround) {
-            map.setYVelocity(-10);
+            map.setYVelocity(-20);
             map.lastJump = System.nanoTime();
         }
         

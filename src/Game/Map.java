@@ -119,7 +119,7 @@ public class Map extends JPanel {
             if (!updated)
                 playerTouchingGround = false;
         }
-        if (!playerTouchingGround && objectData.get(playerIndex).get(5) <= 0 &&
+        if (!playerTouchingGround && objectData.get(playerIndex).get(5) < 10 &&
                 gpLimitReached()) {
             objectData.get(playerIndex).set(5, 10);
         } else if (playerTouchingGround && objectData.get(playerIndex).get(5) >= 0) {
@@ -399,10 +399,10 @@ public class Map extends JPanel {
                         objectData.get(renderedObject.get(i)).set(0, newX);
                         objectData.get(renderedObject.get(i)).set(1, newY);
                         moveCamera("track_player", 0);
-                    } else if (xVelocity * (1 - ROD) == 0) {
+                    } else if (xVelocity * (1 - ROD) == 0 && yVelocity * (1 - ROD) == 0) {
                         connectObjects(renderedObject.get(i), futureConflict(renderedObject.get(i), newX, newY, width, height));
                         break;
-                    } else if (futureConflict(renderedObject.get(i), newX, newY, width, height) != -1 && xVelocity * (1 - ROD) > 0) {
+                    } else if (futureConflict(renderedObject.get(i), newX, newY, width, height) != -1 && (xVelocity * (1 - ROD) > 0 || yVelocity * (1 - ROD) > 0)) {
                         break;
                     }
                     objectData.get(renderedObject.get(i)).set(2, width);
