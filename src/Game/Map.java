@@ -33,10 +33,12 @@ public class Map extends JPanel {
     private ArrayList<ArrayList<Integer>> objectData = new ArrayList<ArrayList<Integer>>();
     public ArrayList<Integer> renderedObject = new ArrayList<Integer>();
     private ArrayList<Integer> mapData = new ArrayList<Integer>();
+    private ArrayList<ArrayList<Boolean>> objectBooleans = new ArrayList<ArrayList<Boolean>>();
 
     private int[] cameraData = new int[4];
 
     private boolean inGame = true;
+    boolean renderFinished = false;
     public boolean playerTouchingGround = false;
 
     private KeyboardListener keyboardListener;
@@ -57,7 +59,7 @@ public class Map extends JPanel {
         cameraData[2] = mapData.get(2);
         cameraData[3] = mapData.get(3);
         setPreferredSize(new Dimension(cameraData[2], cameraData[3]));
-        //setPreferredSize(new Dimension(1200, 300));
+        //setPreferredSize(new Dimension(mapData[0], mapData[1]));
         initGame();
     }
 
@@ -85,6 +87,7 @@ public class Map extends JPanel {
 //             g.setColor(origin);
             renderObjectWithinWindow(g);
             renderObject(g);
+            renderFinished = true;
             Toolkit.getDefaultToolkit().sync();
         } else {
 
@@ -211,15 +214,32 @@ public class Map extends JPanel {
         boolean pastMapDataParam = false;
         int TTRX = 1;
         int TTRY = 1;
+        boolean pastBooleans = false;
+        int booleansToPass = 2;
+        int booleansPassed = 0;
         for (int i = 0; i < data.length(); i++) {
             if (data.substring(i, i + 1).equals(",")) {
                 if (pastMapDataParam) {
                     i += 2;
                     if (currentData.toUpperCase().equals(currentData)) {
-                        if (objectData.size() == 0)
-                            objectData.add(new ArrayList<Integer>());
-                        objectData.get(objectData.size() - 1).add(strToNum(currentData));
-                        currentData = "";
+                        if(booleansPassed == booleansToPass)
+                                pastBooleans = true;
+                        if(!pastBooleans && currentData.length() == 1) {
+                            if(objectBooleans.size() == 0)
+                                objectBooleans.add(new ArrayList<Boolean>());
+                            if(strToNum(currentData) == 0)
+                                objectBooleans.get(objectBooleans.size() - 1).add(false);
+                            if(strToNum(currentData) == 1)
+                                objectBooleans.get(objectBooleans.size() - 1).add(true);
+                            currentData = "";
+                            booleansPassed++;
+                        }
+                        if(pastBooleans) {
+                            if (objectData.size() == 0)
+                                objectData.add(new ArrayList<Integer>());
+                            objectData.get(objectData.size() - 1).add(strToNum(currentData));
+                            currentData = "";
+                        }
                     } else {
                         if (currentData.substring(0, 1).equals("x"))
                             TTRX = strToNum(currentData.substring(1, currentData.length()));
@@ -243,13 +263,18 @@ public class Map extends JPanel {
                 mapData.add(strToNum(currentData));
                 currentData = "";
             } else if (data.substring(i, i + 1).equals("|")) {
+                pastBooleans = false;
+                booleansPassed = 0;
                 object.add(currentData);
                 currentData = "";
                 if (TTRX > 1 && TTRY == 1) {
                     int origin = objectData.size() - 1;
                     for (int a = 1; a != TTRX + 1; a++) {
                         objectData.add(new ArrayList<Integer>());
+                        objectBooleans.add(new ArrayList<Boolean>());
                         object.add(object.get(origin));
+                        objectBooleans.get(objectBooleans.size() - 1).add(objectBooleans.get(origin).get(0));
+                        objectBooleans.get(objectBooleans.size() - 1).add(objectBooleans.get(origin).get(1));
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(2) * a);
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(1));
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(2));
@@ -262,7 +287,10 @@ public class Map extends JPanel {
                     int origin = objectData.size() - 1;
                     for (int a = 1; a != TTRY + 1; a++) {
                         objectData.add(new ArrayList<Integer>());
+                        objectBooleans.add(new ArrayList<Boolean>());
                         object.add(object.get(origin));
+                        objectBooleans.get(objectBooleans.size() - 1).add(objectBooleans.get(origin).get(0));
+                        objectBooleans.get(objectBooleans.size() - 1).add(objectBooleans.get(origin).get(1));
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(0));
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(3) * a);
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(2));
@@ -277,7 +305,10 @@ public class Map extends JPanel {
                     int y = 1;
                     while (true) {
                         objectData.add(new ArrayList<Integer>());
+                        objectBooleans.add(new ArrayList<Boolean>());
                         object.add(object.get(origin));
+                        objectBooleans.get(objectBooleans.size() - 1).add(objectBooleans.get(origin).get(0));
+                        objectBooleans.get(objectBooleans.size() - 1).add(objectBooleans.get(origin).get(1));
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(2) * x);
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(3) * y);
                         objectData.get(objectData.size() - 1).add(objectData.get(origin).get(2));
@@ -296,6 +327,7 @@ public class Map extends JPanel {
                 TTRX = 1;
                 if (i + 1 < data.length()) {
                     objectData.add(new ArrayList<Integer>());
+                    objectBooleans.add(new ArrayList<Boolean>());
                     i++;
                 }
             }
@@ -338,16 +370,16 @@ public class Map extends JPanel {
 
     public void updateVelocity() {
         for (int i = 0; i != renderedObject.size(); i++) {
-            int xVelocity = objectData.get(i).get(4);
-            int yVelocity = objectData.get(i).get(5);
+            int xVelocity = objectData.get(renderedObject.get(i)).get(4);
+            int yVelocity = objectData.get(renderedObject.get(i)).get(5);
             if (xVelocity != 0 || yVelocity != 0) {
                 double ROD = .50;
                 double PPV = 2.5;
                 double PTMP50M = .20;
-                int newX = objectData.get(i).get(0);
-                int newY = objectData.get(i).get(1);
-                int width = objectData.get(i).get(2);
-                int height = objectData.get(i).get(3);
+                int newX = objectData.get(renderedObject.get(i)).get(0);
+                int newY = objectData.get(renderedObject.get(i)).get(1);
+                int width = objectData.get(renderedObject.get(i)).get(2);
+                int height = objectData.get(renderedObject.get(i)).get(3);
                 int PTMX = (int) (PPV * (double) xVelocity);
                 int PTMY = (int) (PPV * (double) yVelocity);
                 int x = (int) (PTMX * PTMP50M);
@@ -356,25 +388,25 @@ public class Map extends JPanel {
                 int PTMMY = 0;
                 xVelocity *= 1 - ROD;
                 yVelocity *= 1 - ROD;
-                objectData.get(i).set(4, xVelocity);
-                objectData.get(i).set(5, yVelocity);
+                objectData.get(renderedObject.get(i)).set(4, xVelocity);
+                objectData.get(renderedObject.get(i)).set(5, yVelocity);
                 while (true) {
                     if (!(Math.abs(PTMMX) > Math.abs(PTMX)))
                         newX += x;
                     if (!(Math.abs(PTMMY) > Math.abs(PTMY)))
                         newY += y;
-                    if (futureConflict(i, newX, newY, width, height) == -1) {
-                        objectData.get(i).set(0, newX);
-                        objectData.get(i).set(1, newY);
+                    if (futureConflict(renderedObject.get(i), newX, newY, width, height) == -1) {
+                        objectData.get(renderedObject.get(i)).set(0, newX);
+                        objectData.get(renderedObject.get(i)).set(1, newY);
                         moveCamera("track_player", 0);
                     } else if (xVelocity * (1 - ROD) == 0) {
-                        connectObjects(i, futureConflict(i, newX, newY, width, height));
+                        connectObjects(renderedObject.get(i), futureConflict(renderedObject.get(i), newX, newY, width, height));
                         break;
-                    } else if (futureConflict(i, newX, newY, width, height) != -1 && xVelocity * (1 - ROD) > 0) {
+                    } else if (futureConflict(renderedObject.get(i), newX, newY, width, height) != -1 && xVelocity * (1 - ROD) > 0) {
                         break;
                     }
-                    objectData.get(i).set(2, width);
-                    objectData.get(i).set(3, height);
+                    objectData.get(renderedObject.get(i)).set(2, width);
+                    objectData.get(renderedObject.get(i)).set(3, height);
                     PTMMX += (int) (PTMX * PTMP50M);
                     PTMMY += (int) (PTMY * PTMP50M);
                     if ((Math.abs(PTMMX) > Math.abs(PTMX) || x == 0) && (Math.abs(PTMMY) > Math.abs(PTMY) || y == 0))
@@ -422,31 +454,33 @@ public class Map extends JPanel {
 
     public int futureConflict(int currentObject, int x, int y, int width, int height) {
         for (int i = 0; i < objectData.size(); i++) {
-            if (i != currentObject) {
-                int newX = objectData.get(i).get(0);
-                int newY = objectData.get(i).get(1);
-                int newWidth = objectData.get(i).get(2);
-                int newHeight = objectData.get(i).get(3);
-                boolean xIntercept = false;
-                for (int x1 = x; x1 < x + width; x1++) {
-                    if (x1 < newX + newWidth && x1 >= newX)
-                        xIntercept = true;
-                }
-                boolean yIntercept = false;
-                if (xIntercept) {
-                    for (int y1 = y; y1 < y + height; y1++) {
-                        if (y1 < newY + newHeight && y1 >= newY)
-                            yIntercept = true;
-                    }
-                }
-                if (xIntercept && yIntercept) {
+            if (objectBooleans.get(i).get(0)) {
+                if (i != currentObject) {
+                    int newX = objectData.get(i).get(0);
+                    int newY = objectData.get(i).get(1);
+                    int newWidth = objectData.get(i).get(2);
+                    int newHeight = objectData.get(i).get(3);
+                    boolean xIntercept = false;
                     for (int x1 = x; x1 < x + width; x1++) {
+                        if (x1 < newX + newWidth && x1 >= newX)
+                            xIntercept = true;
+                    }
+                    boolean yIntercept = false;
+                    if (xIntercept) {
                         for (int y1 = y; y1 < y + height; y1++) {
-                            for (int x2 = newX; x2 < newX + newWidth; x2++) {
-                                for (int y2 = newY; y2 < newY + newHeight; y2++) {
-                                    if (y2 == y1) {
-                                        if (x2 == x1 && y2 == y1) {
-                                            return i;
+                            if (y1 < newY + newHeight && y1 >= newY)
+                                yIntercept = true;
+                        }
+                    }
+                    if (xIntercept && yIntercept) {
+                        for (int x1 = x; x1 < x + width; x1++) {
+                            for (int y1 = y; y1 < y + height; y1++) {
+                                for (int x2 = newX; x2 < newX + newWidth; x2++) {
+                                    for (int y2 = newY; y2 < newY + newHeight; y2++) {
+                                        if (y2 == y1) {
+                                            if (x2 == x1 && y2 == y1) {
+                                                return i;
+                                            }
                                         }
                                     }
                                 }
@@ -454,9 +488,9 @@ public class Map extends JPanel {
                         }
                     }
                 }
-            }
 
+            }
         }
-        return -1;
+            return -1;
     }
 }

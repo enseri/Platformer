@@ -13,6 +13,8 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 
 > If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
-## Dependency Management
+## Map Data Information
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+>Map Name, Width, Height, Visual Width, Visual Height
+
+>Bool collision, Bool Hostile, x, y, width, height, initialVelX, initialVelY, Image

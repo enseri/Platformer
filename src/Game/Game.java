@@ -72,6 +72,10 @@ public class Game extends JFrame {
         map.repaint();
         lastFrame = System.nanoTime();
     }
+
+    public Map getMap() {
+        return map;
+    }
 }
 
 class RenderThread extends Thread {
@@ -102,6 +106,7 @@ class UpdateThread extends Thread {
         while (true) {
             //if (System.nanoTime() - game.lastUpd >= game.timePerUpd) {
                 //game.callUPS();
+                if(game.getMap().renderFinished)
                 game.updateGame();
            // }
         }
