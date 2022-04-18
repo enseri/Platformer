@@ -14,11 +14,11 @@ import java.util.Scanner;
 
 public class GameScreen extends JPanel {
     public Camera camera;
-    ArrayList<Object> renderedObject = new ArrayList<>();
-    ArrayList<Integer> mapData = new ArrayList<>();
+    public ArrayList<Object> renderedObject = new ArrayList<>();
+    public ArrayList<Integer> mapData = new ArrayList<>();
     public ArrayList<Object> objects = new ArrayList<>();
 
-    private Render render;
+    Render render;
 
     GameScreen() {
 
@@ -33,17 +33,12 @@ public class GameScreen extends JPanel {
         addKeyListener(keyboardListener);
         addMouseListener(myMouseListener);
         addMouseMotionListener(myMouseListener);
-        setBackground(Color.black);
+        setBackground(Color.white);
         setFocusable(true);
-        String map = new Scanner(System.in).nextLine();
-        new Generator(this).loadMap(map);
+        render = new Render(this);
+        new Generator(this).loadMap("0");
         camera = new Camera(0, 0, mapData.get(2), mapData.get(3), this);
         setPreferredSize(new Dimension(camera.getData()[2], camera.getData()[3]));
-        initGame();
-    }
-
-    private void initGame() {
-        render = new Render(this);
     }
 
     @Override

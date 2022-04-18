@@ -28,13 +28,13 @@ public class Player extends Object {
         if (xVelocity != 0 || yVelocity != 0) {
             double ROD = .50;
             double PPV = 2.5;
-            double PTMP50M = .20;
+            double PTMPM = .20;
             int newX = x;
             int newY = y;
             int PTMX = (int) (PPV * (double) xVelocity);
             int PTMY = (int) (PPV * (double) yVelocity);
-            int moveX = (int) (PTMX * PTMP50M);
-            int moveY = (int) (PTMY * PTMP50M);
+            int moveX = (int) (PTMX * PTMPM);
+            int moveY = (int) (PTMY * PTMPM);
             int PTMMX = 0;
             int PTMMY = 0;
             xVelocity *= 1 - ROD;
@@ -52,8 +52,8 @@ public class Player extends Object {
                     gameScreen.connectObjects(this, gameScreen.futureConflict(this, newX, newY, width, height));
                     break;
                 }
-                PTMMX += (int) (PTMX * PTMP50M);
-                PTMMY += (int) (PTMY * PTMP50M);
+                PTMMX += (int) (PTMX * PTMPM);
+                PTMMY += (int) (PTMY * PTMPM);
                 if ((Math.abs(PTMMX) > Math.abs(PTMX) || moveX == 0) && (Math.abs(PTMMY) > Math.abs(PTMY) || moveY == 0))
                     break;
                 try {
@@ -142,6 +142,12 @@ public class Player extends Object {
             lastJump = System.nanoTime();
             yVelocity = -15;
         }
+    }
+
+    @Override
+    public String getText() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
 

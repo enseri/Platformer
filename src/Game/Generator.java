@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-class Generator {
+public class Generator {
     private GameScreen gameScreen;
-    Generator(GameScreen gameScreen) {
+    public Generator(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
     private String readMapData(String map) {
@@ -32,7 +32,7 @@ class Generator {
         return str;
     }
 
-    void loadMap(String map) {
+    public void loadMap(String map) {
         boolean passedMapData = false;
         String data = new Generator(gameScreen).readMapData(map);
         String currentData = "";

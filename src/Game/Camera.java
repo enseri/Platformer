@@ -46,7 +46,7 @@ public class Camera {
         }
     }
 
-    int[] getData() {
+    public int[] getData() {
         return new int[]{x, y, width, height};
     }
 }

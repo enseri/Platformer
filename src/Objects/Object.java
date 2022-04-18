@@ -14,4 +14,5 @@ public abstract class Object {
     public abstract void jump();
     public abstract void update();
     public abstract boolean shiftAble();
+    public abstract String getText();
 }

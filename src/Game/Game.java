@@ -1,6 +1,7 @@
 package Game;
 
 import Objects.Object;
+import States.GameStates;
 
 import javax.swing.JFrame;
 
@@ -61,7 +62,7 @@ class RenderThread extends Thread {
         boolean running = true;
         while (running) {
             if (System.nanoTime() - game.lastFrame >= game.timePerFrame) {
-                if(game.lastFrame == 1)
+                if (game.lastFrame == 1)
                     running = false;
                 game.callFPS();
                 game.renderGame();
@@ -72,10 +73,13 @@ class RenderThread extends Thread {
 
 class UpdateThread extends Thread {
     private Game game;
-    UpdateThread(Game game) {this.game = game;}
+
+    UpdateThread(Game game) {
+        this.game = game;
+    }
 
     public void run() {
-        for(int i = 0; i < game.gameScreen.objects.size(); i++) {
+        for (int i = 0; i < game.gameScreen.objects.size(); i++) {
             new TempUpdateThread(game.gameScreen.objects.get(i), game).start();
         }
     }
@@ -94,16 +98,18 @@ class TempUpdateThread extends Thread {
 
     public void run() {
         boolean running = true;
-        if(!object.shiftAble())
+        if (!object.shiftAble())
             running = false;
-        while(running) {
-            if (System.nanoTime() - lastUpdate >= 1000000000.0 / 60) {
-                if(lastUpdate == 1)
-                    running = false;
-                callUPS();
-                object.update();
-                object.velocityShift(game.gameScreen);
-                lastUpdate = System.nanoTime();
+        while (running) {
+            if (GameStates.getGameState().equals("PLAYING")) {
+                if (System.nanoTime() - lastUpdate >= 1000000000.0 / 60) {
+                    if (lastUpdate == 1)
+                        running = false;
+                    callUPS();
+                    object.update();
+                    object.velocityShift(game.gameScreen);
+                    lastUpdate = System.nanoTime();
+                }
             }
         }
     }

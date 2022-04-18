@@ -1,10 +1,13 @@
 package Inputs;
 
 import java.awt.event.*;
+
+import States.GameStates;
 public class MyMouseListener implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        GameStates.setGameState("PLAYING");
     }
 
     @Override
@@ -14,7 +17,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Pressed: (" + e.getX() + ", " + e.getY() + ")");
+        
     }
 
     @Override

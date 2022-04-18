@@ -68,5 +68,11 @@ public class Grass extends Object {
     public void jump() {
 
     }
+
+    @Override
+    public String getText() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
 
