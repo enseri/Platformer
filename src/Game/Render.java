@@ -5,12 +5,14 @@ import javax.swing.*;
 import States.GameStates;
 import States.PLAYING;
 import States.MENU;
+import States.MAPSELECTION;
 
 import java.awt.*;
 
-class Render {
+public class Render {
     private GameScreen gameScreen;
-    MENU menu;
+    public MENU menu;
+    MAPSELECTION mapSelection;
     PLAYING playing;
     Render(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
@@ -33,7 +35,8 @@ class Render {
                 System.out.println("end");
                 break;
             case MAPSELECTION:
-                System.out.println("mapselection");
+                mapSelection = new MAPSELECTION(g, gameScreen);
+                playing.run();
                 break;
             case SETTINGS:
                 System.out.println("settings");

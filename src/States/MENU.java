@@ -15,7 +15,7 @@ public class MENU extends GameState {
     Graphics g;
     GameScreen gameScreen;
     String map;
-    ArrayList<Object> objects = new ArrayList<>();
+    public ArrayList<Object> objects = new ArrayList<>();
 
     public MENU(Graphics g, GameScreen gameScreen) {
         this.g = g;
@@ -42,6 +42,12 @@ public class MENU extends GameState {
             objects.add(new Button(false,
                     gameScreen.camera.getData()[0] + (gameScreen.camera.getData()[2] / 2) - 50, 50, 100, 25,
                     "button.jpg", "PLAY"));
+            objects.add(new Button(false,
+                    gameScreen.camera.getData()[0] + (gameScreen.camera.getData()[2] / 2) - 50, 100, 100, 25,
+                    "button.jpg", "CREATE"));
+            objects.add(new Button(false,
+                    gameScreen.camera.getData()[0] + (gameScreen.camera.getData()[2] / 2) - 50, 150, 100, 25,
+                    "button.jpg", "SETTINGS"));
         }
         for (int i = 0; i < objects.size(); i++) {
             g.drawImage(new ImageIcon("src/Images/" + objects.get(i).getImage()).getImage(),

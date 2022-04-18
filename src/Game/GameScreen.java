@@ -18,7 +18,7 @@ public class GameScreen extends JPanel {
     public ArrayList<Integer> mapData = new ArrayList<>();
     public ArrayList<Object> objects = new ArrayList<>();
 
-    Render render;
+    public Render render;
 
     GameScreen() {
 
@@ -29,7 +29,7 @@ public class GameScreen extends JPanel {
 
     private void init() {
         KeyboardListener keyboardListener = new KeyboardListener(this);
-        MyMouseListener myMouseListener = new MyMouseListener();
+        MyMouseListener myMouseListener = new MyMouseListener(this);
         addKeyListener(keyboardListener);
         addMouseListener(myMouseListener);
         addMouseMotionListener(myMouseListener);
