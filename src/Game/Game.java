@@ -1,33 +1,24 @@
 package Game;
 
-import javax.print.DocFlavor.READER;
-//import java.awt.EventQueue;
+import Objects.Object;
+
 import javax.swing.JFrame;
 
 public class Game extends JFrame {
-    public Game() {
+    private Game() {
         initUI();
     }
 
-    private int velUpdates;
     private int frames;
-    private int plyUpdates;
-    long lastFPS;
-    long lastUVPS;
-    long lastUPPS;
+    private long lastFPS;
     long lastFrame;
-    long lastVelUpd;
-    long lastPlyUpd;
-    double timePerFrame = 1000000000.0 / 60.0;
-    double timePerVelUpd = 1000000000.0 / 30.0;
-    double timePerPlyUpd = 1000000000.0 / 30.0;
-    private Thread gameThread;
+    double timePerFrame = 1000000000.0 / 120.0;
 
-    Map map;
+    GameScreen gameScreen;
 
     private void initUI() {
-        map = new Map();
-        add(map);
+        gameScreen = new GameScreen();
+        add(gameScreen);
         setResizable(false);
         pack();
         setTitle("Platformer");
@@ -45,68 +36,33 @@ public class Game extends JFrame {
         }
     }
 
-    void callVelUPS() {
-        velUpdates++;
-        if (System.currentTimeMillis() - lastUVPS >= 1000) {
-            System.out.println("UVPS: " + velUpdates);
-            velUpdates = 0;
-            lastUVPS = System.currentTimeMillis();
-        }
-    }
-
-    void callPlyUPS() {
-        plyUpdates++;
-        if(System.currentTimeMillis() - lastUPPS >= 1000) {
-            System.out.println("UPPS: " + plyUpdates);
-            plyUpdates = 0;
-            lastUPPS = System.currentTimeMillis();
-        }
-    }
-
     public static void main(String[] args) {
-        // EventQueue.invokeLater(() -> {
-        // JFrame ex = new Game();
-        // ex.setVisible(true);
-        // });
         Game game = new Game();
         RenderThread renderThread = new RenderThread(game);
-        UpdateVelThread updateVelThread = new UpdateVelThread(game);
-        UpdatePlyThread updatePlyThread = new UpdatePlyThread(game);
+        UpdateThread updateThread = new UpdateThread(game);
         renderThread.start();
-        updateVelThread.start();
-        updatePlyThread.start();
-    }
-
-    void updateVelGame() {
-        map.updateVelocity();
-        lastUVPS = System.nanoTime();
-    }
-
-    void updatePlyGame() {
-        map.updatePlayer();
-        lastUPPS = System.nanoTime();
+        updateThread.start();
     }
 
     void renderGame() {
-        map.repaint();
+        gameScreen.repaint();
         lastFrame = System.nanoTime();
-    }
-
-    public Map getMap() {
-        return map;
     }
 }
 
 class RenderThread extends Thread {
-    Game game;
+    private Game game;
 
-    public RenderThread(Game game) {
+    RenderThread(Game game) {
         this.game = game;
     }
 
     public void run() {
-        while (true) {
+        boolean running = true;
+        while (running) {
             if (System.nanoTime() - game.lastFrame >= game.timePerFrame) {
+                if(game.lastFrame == 1)
+                    running = false;
                 game.callFPS();
                 game.renderGame();
             }
@@ -114,35 +70,47 @@ class RenderThread extends Thread {
     }
 }
 
-class UpdatePlyThread extends Thread {
-    Game game;
-
-    public UpdatePlyThread(Game game) {
-        this.game = game;
-    }
+class UpdateThread extends Thread {
+    private Game game;
+    UpdateThread(Game game) {this.game = game;}
 
     public void run() {
-        while (true) {
-            if (System.nanoTime() - game.lastPlyUpd >= game.timePerPlyUpd) {
-                game.callPlyUPS();
-                if(game.getMap().renderFinished)
-                game.updatePlyGame();
-            }
+        for(int i = 0; i < game.gameScreen.objects.size(); i++) {
+            new TempUpdateThread(game.gameScreen.objects.get(i), game).start();
         }
     }
 }
 
-class UpdateVelThread extends Thread {
-    Game game;
-    public UpdateVelThread(Game game) {this.game = game;}
+class TempUpdateThread extends Thread {
+    private Object object;
+    private Game game;
+    private long lastUPS;
+    private long lastUpdate;
+
+    TempUpdateThread(Object object, Game game) {
+        this.object = object;
+        this.game = game;
+    }
 
     public void run() {
-        while(true) {
-            if(System.nanoTime() - game.lastVelUpd >= game.timePerVelUpd) {
-                game.callVelUPS();
-                if(game.getMap().renderFinished)
-                    game.updateVelGame();
+        boolean running = true;
+        if(!object.shiftAble())
+            running = false;
+        while(running) {
+            if (System.nanoTime() - lastUpdate >= 1000000000.0 / 60) {
+                if(lastUpdate == 1)
+                    running = false;
+                callUPS();
+                object.update();
+                object.velocityShift(game.gameScreen);
+                lastUpdate = System.nanoTime();
             }
+        }
+    }
+
+    private void callUPS() {
+        if (System.currentTimeMillis() - lastUPS >= 1000) {
+            lastUPS = System.currentTimeMillis();
         }
     }
 }

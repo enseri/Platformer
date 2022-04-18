@@ -17,4 +17,4 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 
 >Map Name, Width, Height, Visual Width, Visual Height
 
->Bool collision, Bool Hostile, x, y, width, height, initialVelX, initialVelY, Image
+>Bool collision, x, y, width, height, initialVelX, initialVelY, Image
