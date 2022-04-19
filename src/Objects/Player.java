@@ -82,7 +82,7 @@ public class Player extends Object {
                     break;
             }
         }
-        if(!updated) 
+        if(!updated)
             touchingGround = false;
         if (!touchingGround && yVelocity < 10 &&
                 gpLimitReached()) {
@@ -140,7 +140,7 @@ public class Player extends Object {
     public void jump() {
         if(touchingGround) {
             lastJump = System.nanoTime();
-            yVelocity = -15;
+            yVelocity = -20;
         }
     }
 
@@ -148,6 +148,12 @@ public class Player extends Object {
     public String getText() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public boolean bar() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }
 

@@ -5,6 +5,7 @@ import Game.GameScreen;
 public abstract class Object {
     public abstract void velocityShift(GameScreen gameScreen);
     public abstract int[] getData();
+    public abstract boolean bar();
     public abstract boolean getCollision();
     public abstract String getImage();
     public abstract void setX(int x);

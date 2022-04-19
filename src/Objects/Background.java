@@ -74,5 +74,11 @@ public class Background extends Object {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public boolean bar() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
 

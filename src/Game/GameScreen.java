@@ -19,7 +19,7 @@ public class GameScreen extends JPanel {
     public ArrayList<Object> objects = new ArrayList<>();
 
     public Render render;
-    Game game;
+    public Game game;
 
     GameScreen(Game game) {
         this.game = game;

@@ -14,7 +14,6 @@ public class Game extends JFrame {
     private long lastFPS;
     long lastFrame;
     double f = 120, u = 60;
-    double timePerFrame = 1000000000.0 / f;
 
     GameScreen gameScreen;
 
@@ -43,6 +42,10 @@ public class Game extends JFrame {
         u = newFPS / 2;
     }
 
+    public double getFPS() {
+        return f;
+    }
+
     public static void main(String[] args) {
         Game game = new Game();
         RenderThread renderThread = new RenderThread(game);
@@ -67,7 +70,7 @@ class RenderThread extends Thread {
     public void run() {
         boolean running = true;
         while (running) {
-            if (System.nanoTime() - game.lastFrame >= game.timePerFrame) {
+            if (System.nanoTime() - game.lastFrame >= 1000000000 / game.f) {
                 if (game.lastFrame == 1)
                     running = false;
                 game.callFPS();

@@ -15,7 +15,7 @@ public class Render {
     public MENU menu;
     public MAPSELECTION mapSelection;
     PLAYING playing;
-    SETTINGS settings
+    public SETTINGS settings;
     Render(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }

@@ -3,7 +3,7 @@ package Objects;
 import Game.GameScreen;
 
 public class Button extends Object {
-    private boolean collision;
+    boolean bar;
     private int x;
     private int y;
     private int width;
@@ -11,8 +11,8 @@ public class Button extends Object {
     private String image;
     private String text;
 
-    public Button(boolean collision, int x, int y, int width, int height, String image, String text) {
-        this.collision = collision;
+    public Button(boolean bar, int x, int y, int width, int height, String image, String text) {
+        this.bar = bar;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -40,7 +40,7 @@ public class Button extends Object {
 
     @Override
     public boolean getCollision() {
-        return collision;
+        return false;
     }
 
     @Override
@@ -73,6 +73,11 @@ public class Button extends Object {
 
     public String getText() {
         return text;
+    }
+
+    @Override
+    public boolean bar() {
+        return bar;
     }
 }
 
