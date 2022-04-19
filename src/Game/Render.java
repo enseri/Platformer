@@ -36,7 +36,7 @@ public class Render {
                 break;
             case MAPSELECTION:
                 mapSelection = new MAPSELECTION(g, gameScreen);
-                playing.run();
+                mapSelection.run();
                 break;
             case SETTINGS:
                 System.out.println("settings");

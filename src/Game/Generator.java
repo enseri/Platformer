@@ -8,6 +8,7 @@ import Objects.Object;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Generator {
@@ -144,5 +145,14 @@ public class Generator {
             default:
                 return new Blank(collision, x, y, width, height, image);
         }
+    }
+
+    public static File[] getAllFiles() {
+        File dir = new File("src/saves");
+        File[] arr = new File[Objects.requireNonNull(dir.listFiles()).length];
+        for(int i = 0; i != arr.length; i++) {
+            arr[i] = Objects.requireNonNull(dir.listFiles())[i];
+        }
+        return arr;
     }
 }
