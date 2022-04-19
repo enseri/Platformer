@@ -30,6 +30,13 @@ public class SETTINGS extends GameState{
         g.drawRect(objects.get(0).getData()[0], objects.get(0).getData()[1], objects.get(0).getData()[2], objects.get(0).getData()[3]);
         String text = objects.get(0).getText() + gameScreen.game.getFPS();
         g.drawString(text, objects.get(0).getData()[0] + (objects.get(0).getData()[2] / 2) - (text.length() * 4), objects.get(0).getData()[1] + (objects.get(0).getData()[3] / 2));
+        if(objects.size() == 2)
+        objects.remove(objects.size() - 1);
+        objects.add(new Objects.Button(false, 0, 250, 50, 50, "Button.jpg", "BACK"));
+        g.setColor(Color.red);
+        g.fillRect(0, 250, 50, 50);
+        g.setColor(Color.black);
+        g.drawString("BACK", 9, 275);
     }
     
     public void updateFPS(int x) {

@@ -19,6 +19,9 @@ class RegisterThread extends Thread{
     public void run() {
         while(running && GameStates.getGameState().equals("PLAYING")) {
             System.out.print("");
+            if (key == 27) {
+                GameStates.setGameState("MENU");
+            }
             if (key == 37)
                 gameScreen.objects.get(gameScreen.findPlayer()).setXVelocity(-10);
             if (key == 38) {
@@ -30,7 +33,7 @@ class RegisterThread extends Thread{
             if (key == 40)
                 gameScreen.objects.get(gameScreen.findPlayer()).setYVelocity(10);
             if (key == 61)
-                gameScreen.camera.moveCamera("track_player", 0);
+                System.out.println(gameScreen.objects.get(gameScreen.findPlayer()).getData()[0] + " " + gameScreen.objects.get(gameScreen.findPlayer()).getData()[1]);
             if (key == 91)
                 gameScreen.camera.moveCamera("backward", 10);
             if (key == 93)

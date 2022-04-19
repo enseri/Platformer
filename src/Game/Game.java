@@ -122,6 +122,12 @@ class TempUpdateThread extends Thread {
                     object.velocityShift(game.gameScreen);
                     lastUpdate = System.nanoTime();
                 }
+            } else {
+                while(!GameStates.getGameState().equals("PLAYING")) {
+                    System.out.print("");
+                }
+                new UpdateThread(game).start();
+                break;
             }
         }
     }

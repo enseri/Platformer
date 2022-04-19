@@ -34,8 +34,9 @@ public class MAPSELECTION extends GameState{
                     y += 100;
                 }
             }
+            objects.add(new Objects.Button(false, 0, 250, 50, 50, "Button.jpg", "BACK"));
         }
-        for(int i = 0; i != objects.size(); i++) {
+        for(int i = 0; i != objects.size() - 1; i++) {
             int x = objects.get(i).getData()[0];
             int y = objects.get(i).getData()[1] - gameScreen.camera.getData()[1];
             Color origin = g.getColor();
@@ -50,8 +51,6 @@ public class MAPSELECTION extends GameState{
             g.drawString(text, x + 100 - (text.length() * 4), y + 60);
             g.setColor(origin);
         }
-        objects.remove(objects.size() - 1);
-        objects.add(new Objects.Button(false, 0, 250, 50, 50, "Button.jpg", "BACK"));
         g.setColor(Color.red);
         g.fillRect(0, 250, 50, 50);
         g.setColor(Color.black);
