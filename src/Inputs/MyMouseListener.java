@@ -3,6 +3,7 @@ package Inputs;
 import java.awt.event.*;
 
 import Game.GameScreen;
+import Game.Generator;
 import States.GameStates;
 
 public class MyMouseListener implements MouseListener, MouseMotionListener {
@@ -38,9 +39,18 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
                 case "SETTINGS":
                     GameStates.setGameState("SETTINGS");
                     break;
-                default:
-                    System.out.println("UMMMM maybe you should press a button");
-                    break;
+            }
+        } else {
+            for (int i = 0; i < gameScreen.render.mapSelection.objects.size(); i++) {
+                int x = gameScreen.render.mapSelection.objects.get(i).getData()[0];
+                int y = gameScreen.render.mapSelection.objects.get(i).getData()[1];
+                int width = gameScreen.render.mapSelection.objects.get(i).getData()[2];
+                int height = gameScreen.render.mapSelection.objects.get(i).getData()[3];
+                if (e.getX() < x + width && e.getX() >= x && e.getY() < y + height && e.getY() >= y) {
+                    gameScreen.clearMapData();
+                    new Generator(gameScreen).loadMap(gameScreen.render.mapSelection.objects.get(i).getText());
+                    GameStates.setGameState("PLAYING");
+                }
             }
         }
     }
@@ -56,6 +66,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
         if (dragged) {
             finalX = e.getX();
             finalY = e.getY();
+            if(GameStates.getGameState().equals("MAPSELECTION"));
+            gameScreen.camera.moveCamera("scroll", initialY - finalY);
             dragged = false;
         } else {
             System.out.println("Not Draggeed");

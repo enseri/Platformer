@@ -148,7 +148,7 @@ public class Generator {
     }
 
     public static File[] getAllFiles() {
-        File dir = new File("src/saves");
+        File dir = new File("src/Saves");
         File[] arr = new File[Objects.requireNonNull(dir.listFiles()).length];
         for(int i = 0; i != arr.length; i++) {
             arr[i] = Objects.requireNonNull(dir.listFiles())[i];

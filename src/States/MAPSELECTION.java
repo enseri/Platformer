@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class MAPSELECTION extends GameState{
     Graphics g;
     GameScreen gameScreen;
-    ArrayList<Object> objects = new ArrayList<>();
+    public ArrayList<Object> objects = new ArrayList<>();
 
 
     public MAPSELECTION(Graphics g, GameScreen gameScreen) {
@@ -37,14 +37,14 @@ public class MAPSELECTION extends GameState{
         }
         for(int i = 0; i != objects.size(); i++) {
             int x = objects.get(i).getData()[0];
-            int y = objects.get(i).getData()[1];
+            int y = objects.get(i).getData()[1] - gameScreen.camera.getData()[1];
             Color origin = g.getColor();
-            g.setColor(new Color(255, 255, 255, 200));
+            g.drawImage(new ImageIcon("src/Images/" + objects.get(i).getImage()).getImage(), x, y, 200, 100, null);
+            g.setColor(new Color(255, 255, 255, 100));
             g.fillRect(x, y, 200, 100);
-            g.setColor(Color.black);
+            g.setColor(Color.red);
             g.drawRect(x, y, 200, 100);
             g.setColor(origin);
-            g.drawImage(new ImageIcon("src/Images/" + objects.get(i).getImage()).getImage(), x, y, 200, 100, null);
             String text = objects.get(i).getText();
             g.setColor(Color.BLUE);
             g.drawString(text, x + 100 - (text.length() * 4), y + 60);

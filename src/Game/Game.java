@@ -13,12 +13,13 @@ public class Game extends JFrame {
     private int frames;
     private long lastFPS;
     long lastFrame;
-    double timePerFrame = 1000000000.0 / 120.0;
+    double f = 120, u = 60;
+    double timePerFrame = 1000000000.0 / f;
 
     GameScreen gameScreen;
 
     private void initUI() {
-        gameScreen = new GameScreen();
+        gameScreen = new GameScreen(this);
         add(gameScreen);
         setResizable(false);
         pack();
@@ -35,6 +36,11 @@ public class Game extends JFrame {
             frames = 0;
             lastFPS = System.currentTimeMillis();
         }
+    }
+
+    public void setFPS(int newFPS) {
+        f = newFPS;
+        u = newFPS / 2;
     }
 
     public static void main(String[] args) {
@@ -79,6 +85,9 @@ class UpdateThread extends Thread {
     }
 
     public void run() {
+        while(!GameStates.getGameState().equals("PLAYING")) {
+            System.out.print("");
+        }
         for (int i = 0; i < game.gameScreen.objects.size(); i++) {
             new TempUpdateThread(game.gameScreen.objects.get(i), game).start();
         }
@@ -102,7 +111,7 @@ class TempUpdateThread extends Thread {
             running = false;
         while (running) {
             if (GameStates.getGameState().equals("PLAYING")) {
-                if (System.nanoTime() - lastUpdate >= 1000000000.0 / 60) {
+                if (System.nanoTime() - lastUpdate >= 1000000000.0 / game.u) {
                     if (lastUpdate == 1)
                         running = false;
                     callUPS();

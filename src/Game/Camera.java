@@ -14,13 +14,15 @@ public class Camera {
     public void moveCamera(String direction, int distance) {
         switch (direction.toLowerCase()) {
             case "forward":
-                if (x + 10 + width < gameScreen.mapData.get(0))
+                if (x + distance + width < gameScreen.mapData.get(0))
                     x += distance;
                 break;
             case "backward":
-                if (x - 10 > -1)
+                if (x - distance > -1)
                     x -= distance;
                 break;
+            case "scroll":
+                y += distance;
             case "track_player":
                 if (x + (gameScreen.objects.get(gameScreen.findPlayer()).getData()[0] + (gameScreen.objects.get(gameScreen.findPlayer()).getData()[2] / 2))
                         - (x + (width / 2)) + width < gameScreen.mapData.get(0)

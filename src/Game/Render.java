@@ -6,14 +6,16 @@ import States.GameStates;
 import States.PLAYING;
 import States.MENU;
 import States.MAPSELECTION;
+import States.SETTINGS;
 
 import java.awt.*;
 
 public class Render {
     private GameScreen gameScreen;
     public MENU menu;
-    MAPSELECTION mapSelection;
+    public MAPSELECTION mapSelection;
     PLAYING playing;
+    SETTINGS settings
     Render(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
@@ -39,7 +41,8 @@ public class Render {
                 mapSelection.run();
                 break;
             case SETTINGS:
-                System.out.println("settings");
+                settings = new SETTINGS(g, gameScreen);
+                settings.run();
                 break;
             default:
                 System.out.println("error");

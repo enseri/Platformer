@@ -19,9 +19,10 @@ public class GameScreen extends JPanel {
     public ArrayList<Object> objects = new ArrayList<>();
 
     public Render render;
+    Game game;
 
-    GameScreen() {
-
+    GameScreen(Game game) {
+        this.game = game;
         init();
 
 
@@ -144,5 +145,17 @@ public class GameScreen extends JPanel {
             }
         }
         return null;
+    }
+
+    public void clearMapData() {
+        while(renderedObject.size() != 0) {
+            renderedObject.remove(0);
+        }
+        while(mapData.size() != 0) {
+            mapData.remove(0);
+        }
+        while(objects.size() != 0) {
+            objects.remove(0);
+        }
     }
 }

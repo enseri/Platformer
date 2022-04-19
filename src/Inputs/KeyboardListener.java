@@ -1,6 +1,7 @@
 package Inputs;
 
 import Game.GameScreen;
+import States.GameStates;
 
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ class RegisterThread extends Thread{
     }
 
     public void run() {
-        while(running) {
+        while(running && GameStates.getGameState().equals("PLAYING")) {
             System.out.print("");
             if (key == 37)
                 gameScreen.objects.get(gameScreen.findPlayer()).setXVelocity(-10);

@@ -82,7 +82,7 @@ public class Player extends Object {
                     break;
             }
         }
-        if(!updated)
+        if(!updated) 
             touchingGround = false;
         if (!touchingGround && yVelocity < 10 &&
                 gpLimitReached()) {
