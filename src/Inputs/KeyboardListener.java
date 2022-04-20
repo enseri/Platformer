@@ -17,20 +17,21 @@ class RegisterThread extends Thread{
     }
 
     public void run() {
-        while(running && GameStates.getGameState().equals("PLAYING")) {
+        assert GameStates.getGameState() != null;
+        while(running && (GameStates.getGameState().equals("PLAYING") || GameStates.getGameState().equals("END"))) {
             System.out.print("");
             if (key == 27) {
                 GameStates.setGameState("MENU");
             }
-            if (key == 37)
+            if (key == 37 && GameStates.getGameState().equals("PLAYING"))
                 gameScreen.objects.get(gameScreen.findPlayer()).setXVelocity(-10);
-            if (key == 38) {
+            if (key == 38 && GameStates.getGameState().equals("PLAYING")) {
                 gameScreen.objects.get(gameScreen.findPlayer()).jump();
             }
-            if (key == 39) {
+            if (key == 39 && GameStates.getGameState().equals("PLAYING")) {
                 gameScreen.objects.get(gameScreen.findPlayer()).setXVelocity(10);
             }
-            if (key == 40)
+            if (key == 40 && GameStates.getGameState().equals("PLAYING"))
                 gameScreen.objects.get(gameScreen.findPlayer()).setYVelocity(10);
             if (key == 61)
                 System.out.println(gameScreen.objects.get(gameScreen.findPlayer()).getData()[0] + " " + gameScreen.objects.get(gameScreen.findPlayer()).getData()[1]);

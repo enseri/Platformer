@@ -44,12 +44,14 @@ public class Player extends Object {
                     newX += moveX;
                 if (!(Math.abs(PTMMY) > Math.abs(PTMY)))
                     newY += moveY;
-                if (gameScreen.futureConflict(this, newX, newY, width, height) == null) {
+                Object temp = gameScreen.futureConflict(this, newX, newY, width, height);
+                if (temp == null) {
                     x = newX;
                     y = newY;
                     gameScreen.camera.moveCamera("track_player", 0);
                 } else {
-                    gameScreen.connectObjects(this, gameScreen.futureConflict(this, newX, newY, width, height));
+                    gameScreen.connectObjects(this, temp);
+                    temp.specialFunction("collision");
                     break;
                 }
                 PTMMX += (int) (PTMX * PTMPM);
@@ -68,9 +70,9 @@ public class Player extends Object {
     public void update() {
         boolean updated = false;
         for (int i = 0; i != gameScreen.objects.size(); i++) {
-            if (this != gameScreen.objects.get(i)) {
+            if (gameScreen.objects.get(i).getCollision() && this != gameScreen.objects.get(i)) {
                 if (y + height == gameScreen.objects.get(i).getData()[1]) {
-                    for (int x = 0; x != x + width; x++) {
+                    for (int x1 = x; x1 != x + width; x1++) {
                         if (x < gameScreen.objects.get(i).getData()[0] + gameScreen.objects.get(i).getData()[2] && x >= gameScreen.objects.get(i).getData()[0]) {
                             updated = true;
                             touchingGround = true;
@@ -104,6 +106,11 @@ public class Player extends Object {
 
     public int[] getData(){
         return new int[]{x, y, width, height};
+    }
+
+    @Override
+    public void specialFunction(String event) {
+
     }
 
     @Override
@@ -150,10 +157,5 @@ public class Player extends Object {
         return null;
     }
 
-    @Override
-    public boolean bar() {
-        // TODO Auto-generated method stub
-        return false;
-    }
 }
 

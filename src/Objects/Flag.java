@@ -1,16 +1,13 @@
 package Objects;
 
 import Game.GameScreen;
+import States.GameStates;
 
-public class Grass extends Object {
+public class Flag extends Object {
     private boolean collision;
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+    private int x, y, width, height;
     private String image;
-
-    public Grass(boolean collision, int x, int y, int width, int height, String image) {
+    public Flag(boolean collision, int x, int y, int width, int height, String image) {
         this.collision = collision;
         this.x = x;
         this.y = y;
@@ -34,6 +31,13 @@ public class Grass extends Object {
 
     public int[] getData(){
         return new int[]{x, y, width, height};
+    }
+
+    @Override
+    public void specialFunction(String event) {
+        if ("collision".equals(event)) {
+            GameStates.setGameState("END");
+        }
     }
 
     @Override
@@ -75,10 +79,4 @@ public class Grass extends Object {
         return null;
     }
 
-    @Override
-    public boolean bar() {
-        // TODO Auto-generated method stub
-        return false;
-    }
 }
-

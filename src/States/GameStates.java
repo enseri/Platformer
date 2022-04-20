@@ -18,9 +18,6 @@ public enum GameStates {
             case "PLAYING":
                 gameState = PLAYING;
                 break;
-            case "MENU":
-                gameState = MENU;
-                break;
             case "END":
                 gameState = END;
                 break;

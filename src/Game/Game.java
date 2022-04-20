@@ -39,7 +39,7 @@ public class Game extends JFrame {
 
     public void setFPS(int newFPS) {
         f = newFPS;
-        u = newFPS / 2;
+        u = newFPS / 2.0;
     }
 
     public double getFPS() {
@@ -88,6 +88,7 @@ class UpdateThread extends Thread {
     }
 
     public void run() {
+        assert GameStates.getGameState() != null;
         while(!GameStates.getGameState().equals("PLAYING")) {
             System.out.print("");
         }
@@ -113,6 +114,7 @@ class TempUpdateThread extends Thread {
         if (!object.shiftAble())
             running = false;
         while (running) {
+            assert GameStates.getGameState() != null;
             if (GameStates.getGameState().equals("PLAYING")) {
                 if (System.nanoTime() - lastUpdate >= 1000000000.0 / game.u) {
                     if (lastUpdate == 1)

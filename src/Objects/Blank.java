@@ -37,6 +37,11 @@ public class Blank extends Object {
     }
 
     @Override
+    public void specialFunction(String event) {
+
+    }
+
+    @Override
     public boolean getCollision() {
         return collision;
     }
@@ -75,10 +80,5 @@ public class Blank extends Object {
         return null;
     }
 
-    @Override
-    public boolean bar() {
-        // TODO Auto-generated method stub
-        return false;
-    }
 }
 

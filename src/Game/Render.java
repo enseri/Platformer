@@ -1,12 +1,6 @@
 package Game;
 
-import javax.swing.*;
-
-import States.GameStates;
-import States.PLAYING;
-import States.MENU;
-import States.MAPSELECTION;
-import States.SETTINGS;
+import States.*;
 
 import java.awt.*;
 
@@ -14,8 +8,8 @@ public class Render {
     private GameScreen gameScreen;
     public MENU menu;
     public MAPSELECTION mapSelection;
-    PLAYING playing;
     public SETTINGS settings;
+
     Render(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
@@ -27,14 +21,15 @@ public class Render {
                 menu.run();
                 break;
             case PLAYING:
-                playing = new PLAYING(g, gameScreen);
+                PLAYING playing = new PLAYING(g, gameScreen);
                 playing.run();
                 break;
             case CREATING:
                 System.out.println("creating");
                 break;
             case END:
-                System.out.println("end");
+                END end = new END(g, gameScreen);
+                end.run();
                 break;
             case MAPSELECTION:
                 mapSelection = new MAPSELECTION(g, gameScreen);

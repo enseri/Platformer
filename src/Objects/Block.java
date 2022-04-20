@@ -2,23 +2,21 @@ package Objects;
 
 import Game.GameScreen;
 
-public class Button extends Object {
-    private boolean bar;
+public class Block extends Object {
+    private boolean collision;
     private int x;
     private int y;
     private int width;
     private int height;
     private String image;
-    private String text;
 
-    public Button(boolean bar, int x, int y, int width, int height, String image, String text) {
-        this.bar = bar;
+    public Block(boolean collision, int x, int y, int width, int height, String image) {
+        this.collision = collision;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.image = image;
-        this.text = text;
     }
 
     public void velocityShift(GameScreen gameScreen) {
@@ -45,7 +43,7 @@ public class Button extends Object {
 
     @Override
     public boolean getCollision() {
-        return false;
+        return collision;
     }
 
     @Override
@@ -76,8 +74,10 @@ public class Button extends Object {
 
     }
 
+    @Override
     public String getText() {
-        return text;
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

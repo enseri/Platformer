@@ -8,15 +8,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class SETTINGS extends GameState{
-    Graphics g;
-    GameScreen gameScreen;
+public class SETTINGS{
+    private Graphics g;
+    private GameScreen gameScreen;
     public ArrayList<Object> objects = new ArrayList<>();
     public SETTINGS(Graphics g, GameScreen gameScreen) {
         this.g = g;
         this.gameScreen = gameScreen;
     }
-    @Override
     public
     void run() {
         if(objects.size() == 0) {
@@ -29,7 +28,7 @@ public class SETTINGS extends GameState{
         g.setColor(Color.black);
         g.drawRect(objects.get(0).getData()[0], objects.get(0).getData()[1], objects.get(0).getData()[2], objects.get(0).getData()[3]);
         String text = objects.get(0).getText() + gameScreen.game.getFPS();
-        g.drawString(text, objects.get(0).getData()[0] + (objects.get(0).getData()[2] / 2) - (text.length() * 4), objects.get(0).getData()[1] + (objects.get(0).getData()[3] / 2));
+        g.drawString(text, objects.get(0).getData()[0] + (objects.get(0).getData()[2] / 2) - (int)(text.length() * 3.5), objects.get(0).getData()[1] + (int)(objects.get(0).getData()[3] / 2));
         if(objects.size() == 2)
         objects.remove(objects.size() - 1);
         objects.add(new Objects.Button(false, 0, 250, 50, 50, "Button.jpg", "BACK"));
@@ -45,16 +44,4 @@ public class SETTINGS extends GameState{
         gameScreen.game.setFPS(difference);
     }
 
-    @Override
-    GameState getGameState() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    void clear() {
-        // TODO Auto-generated method stub
-        
-    }
-    
 }

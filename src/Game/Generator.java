@@ -3,8 +3,9 @@ package Game;
 import Objects.Background;
 import Objects.Player;
 import Objects.Blank;
-import Objects.Grass;
+import Objects.Block;
 import Objects.Object;
+import Objects.Flag;
 
 import java.io.File;
 import java.io.IOException;
@@ -135,13 +136,15 @@ public class Generator {
     }
 
     private Object generateObject(Boolean collision, int x, int y, int width, int height, int xV, int yV, String image) {
-        switch(image.substring(0, image.length() - 4)) {
+        switch(image.substring(0, image.length() - 5)) {
             case "player":
                 return new Player(collision, x, y, width, height, xV, yV, image, gameScreen);
-            case "grass":
-                return new Grass(collision, x, y, width, height, image);
+            case "block":
+                return new Block(collision, x, y, width, height, image);
             case "background":
                 return new Background(collision, x, y, width, height, image);
+            case "flag":
+                return new Flag(collision, x, y, width, height, image);
             default:
                 return new Blank(collision, x, y, width, height, image);
         }

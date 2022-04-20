@@ -1,13 +1,12 @@
 package States;
 import Game.GameScreen;
-import Game.Generator;
 
 import java.awt.*;
 
 import javax.swing.ImageIcon;
 
-public class PLAYING extends GameState {
-    Graphics g;
+public class PLAYING{
+    private Graphics g;
     private GameScreen gameScreen;
 
     public PLAYING(Graphics g, GameScreen gameScreen) {
@@ -15,16 +14,10 @@ public class PLAYING extends GameState {
         this.gameScreen = gameScreen;
     }
 
-    @Override
     public
     void run() {
         renderObjectWithinWindow(g);
         renderObject(g);
-    }
-
-    @Override
-    GameState getGameState() {
-        return this;
     }
 
     private void renderObject(Graphics g) {
@@ -77,8 +70,4 @@ public class PLAYING extends GameState {
         }
     }
 
-    @Override
-    void clear() {
-        // TODO Auto-generated method stub
-    }
 }

@@ -2,20 +2,16 @@ package Game;
 
 import Inputs.KeyboardListener;
 import Inputs.MyMouseListener;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Toolkit;
-import javax.swing.JPanel;
-import java.util.ArrayList;
 import Objects.Object;
-import java.util.Scanner;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class GameScreen extends JPanel {
     public Camera camera;
     public ArrayList<Object> renderedObject = new ArrayList<>();
-    public ArrayList<Integer> mapData = new ArrayList<>();
+    ArrayList<Integer> mapData = new ArrayList<>();
     public ArrayList<Object> objects = new ArrayList<>();
 
     public Render render;
@@ -55,7 +51,7 @@ public class GameScreen extends JPanel {
 
     public int findPlayer() {
         for(int i = 0; i < objects.size(); i++) {
-            if(objects.get(i).getImage().equals("player.jpg"))
+            if(objects.get(i).getImage().substring(0, objects.get(i).getImage().length() - 5).equals("player"))
                 return i;
         }
         return -1;
@@ -69,14 +65,14 @@ public class GameScreen extends JPanel {
         int x1 = data1[0], y1 = data1[1], width1 = data1[2], height1 = data1[3];
         int x2 = data2[0], y2 = data2[1], width2 = data2[2], height2 = data2[3];
         for (int x = x1; x < x1 + width1; x++) {
-            if (x1 < x2 + width2 && x1 >= x2) {
+            if (x < x2 + width2 && x >= x2) {
                 xIntercept = true;
                 break;
             }
         }
         boolean yIntercept = false;
         for (int y = y1; y < y1 + height1; y++) {
-            if (y1 < y2 + height2 && y1 >= y2) {
+            if (y < y2 + height2 && y >= y2) {
                 yIntercept = true;
                 break;
             }

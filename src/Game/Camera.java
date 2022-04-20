@@ -48,6 +48,11 @@ public class Camera {
         }
     }
 
+    public void reset() {
+        x = 0;
+        y = 0;
+    }
+
     public int[] getData() {
         return new int[]{x, y, width, height};
     }
