@@ -1,5 +1,7 @@
 package Objects;
 
+import java.util.ArrayList;
+
 import Game.GameScreen;
 import States.GameStates;
 
@@ -75,6 +77,24 @@ public class Flag extends Object {
 
     @Override
     public String getText() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean getDropped() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void toggleDropped() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public ArrayList<Button> getDropDown() {
         // TODO Auto-generated method stub
         return null;
     }

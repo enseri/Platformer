@@ -9,9 +9,11 @@ public class Render {
     public MENU menu;
     public MAPSELECTION mapSelection;
     public SETTINGS settings;
+    public CREATING creating;
 
     Render(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
+        creating = new CREATING(gameScreen);
     }
     
     void render(Graphics g) {
@@ -25,7 +27,7 @@ public class Render {
                 playing.run();
                 break;
             case CREATING:
-                System.out.println("creating");
+                creating.run(g);
                 break;
             case END:
                 END end = new END(g, gameScreen);

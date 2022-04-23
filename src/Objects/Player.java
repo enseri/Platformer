@@ -2,6 +2,7 @@ package Objects;
 
 import Game.GameScreen;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Player extends Object {
@@ -125,6 +126,7 @@ public class Player extends Object {
 
     @Override
     public void setX(int x) {
+        System.out.println("moved");
         this.x = x;
     }
 
@@ -153,6 +155,24 @@ public class Player extends Object {
 
     @Override
     public String getText() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean getDropped() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void toggleDropped() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public ArrayList<Button> getDropDown() {
         // TODO Auto-generated method stub
         return null;
     }

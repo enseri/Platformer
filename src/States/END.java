@@ -15,7 +15,7 @@ public class END {
         g.setColor(new Color(0, 0, 0, 150));
         g.drawRect(0, 0, gameScreen.camera.getData()[2], gameScreen.camera.getData()[3]);
         g.setColor(Color.red);
-        g.drawString("VICTORY!!!", gameScreen.camera.getData()[2] / 2 - 35, gameScreen. camera.getData()[3] / 2);
-        g.drawString("Press ESC to return to menu", gameScreen.camera.getData()[2] / 2 - 95, gameScreen.camera.getData()[3] / 2 + 50);
+        g.drawString("VICTORY!!!", gameScreen.camera.getData()[2] / 2 - (int) (10 * 3.25), gameScreen. camera.getData()[3] / 2);
+        g.drawString("Press ESC to return to menu", gameScreen.camera.getData()[2] / 2 - (int) (27 * 3.25), gameScreen.camera.getData()[3] / 2 + 50);
     }
 }

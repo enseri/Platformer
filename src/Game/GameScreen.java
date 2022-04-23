@@ -21,7 +21,6 @@ public class GameScreen extends JPanel {
         this.game = game;
         init();
 
-
     }
 
     private void init() {
@@ -33,9 +32,10 @@ public class GameScreen extends JPanel {
         setBackground(Color.white);
         setFocusable(true);
         render = new Render(this);
-        new Generator(this).loadMap("0");
+        new Generator(this).loadMap("default");
         camera = new Camera(0, 0, mapData.get(2), mapData.get(3), this);
         setPreferredSize(new Dimension(camera.getData()[2], camera.getData()[3]));
+
     }
 
     @Override
@@ -50,13 +50,12 @@ public class GameScreen extends JPanel {
     }
 
     public int findPlayer() {
-        for(int i = 0; i < objects.size(); i++) {
-            if(objects.get(i).getImage().substring(0, objects.get(i).getImage().length() - 5).equals("player"))
+        for (int i = 0; i < objects.size(); i++) {
+            if (objects.get(i).getImage().substring(0, objects.get(i).getImage().length() - 5).equals("player"))
                 return i;
         }
         return -1;
     }
-
 
     public void connectObjects(Object object1, Object object2) {
         int[] data1 = object1.getData();
@@ -144,13 +143,13 @@ public class GameScreen extends JPanel {
     }
 
     public void clearMapData() {
-        while(renderedObject.size() != 0) {
+        while (renderedObject.size() != 0) {
             renderedObject.remove(0);
         }
-        while(mapData.size() != 0) {
+        while (mapData.size() != 0) {
             mapData.remove(0);
         }
-        while(objects.size() != 0) {
+        while (objects.size() != 0) {
             objects.remove(0);
         }
     }

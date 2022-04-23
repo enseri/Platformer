@@ -26,7 +26,7 @@ public class Generator {
                 str = read.nextLine();
                 error = false;
             } catch (IOException E) {
-                map = "";
+                map = "default";
                 System.out.println("Map Not Found");
                 error = true;
             }
@@ -135,8 +135,13 @@ public class Generator {
         return num == 1;
     }
 
-    private Object generateObject(Boolean collision, int x, int y, int width, int height, int xV, int yV, String image) {
-        switch(image.substring(0, image.length() - 5)) {
+    public Object generateObject(Boolean collision, int x, int y, int width, int height, int xV, int yV, String image) {
+        int stopper = 0;
+        for(int i = 0; i != image.length() && stopper == 0; i++) {
+            if(image.substring(i, i + 1).toUpperCase().equals(image.substring(i, i + 1).toLowerCase()))
+                stopper = i;
+        }
+        switch(image.substring(0, stopper)) {
             case "player":
                 return new Player(collision, x, y, width, height, xV, yV, image, gameScreen);
             case "block":
@@ -150,8 +155,8 @@ public class Generator {
         }
     }
 
-    public static File[] getAllFiles() {
-        File dir = new File("src/Saves");
+    public static File[] getAllFiles(String Folder) {
+        File dir = new File("src/" + Folder);
         File[] arr = new File[Objects.requireNonNull(dir.listFiles()).length];
         for(int i = 0; i != arr.length; i++) {
             arr[i] = Objects.requireNonNull(dir.listFiles())[i];

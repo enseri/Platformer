@@ -1,9 +1,10 @@
 package Objects;
 
+import java.util.ArrayList;
+
 import Game.GameScreen;
 
 public class Button extends Object {
-    private boolean bar;
     private int x;
     private int y;
     private int width;
@@ -12,7 +13,6 @@ public class Button extends Object {
     private String text;
 
     public Button(boolean bar, int x, int y, int width, int height, String image, String text) {
-        this.bar = bar;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -78,6 +78,24 @@ public class Button extends Object {
 
     public String getText() {
         return text;
+    }
+
+    @Override
+    public boolean getDropped() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void toggleDropped() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public ArrayList<Button> getDropDown() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

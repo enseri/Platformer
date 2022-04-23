@@ -4,21 +4,25 @@ import java.util.ArrayList;
 
 import Game.GameScreen;
 
-public class Background extends Object {
-    private boolean collision;
+public class DropDown extends Object {
     private int x;
     private int y;
+    private ArrayList<Button> objects = new ArrayList<>();
     private int width;
     private int height;
     private String image;
+    private String text;
+    private boolean dropped = false;
 
-    public Background(boolean collision, int x, int y, int width, int height, String image) {
-        this.collision = collision;
+    public DropDown(ArrayList<Button> objects, int x, int y, int width, int height, String image, String text) {
+        for(int i = 0; i != objects.size(); i++)
+            this.objects.add(objects.get(i));
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.image = image;
+        this.text = text;
     }
 
     public void velocityShift(GameScreen gameScreen) {
@@ -45,7 +49,7 @@ public class Background extends Object {
 
     @Override
     public boolean getCollision() {
-        return collision;
+        return false;
     }
 
     @Override
@@ -76,29 +80,23 @@ public class Background extends Object {
 
     }
 
-    @Override
     public String getText() {
-        // TODO Auto-generated method stub
-        return null;
+        return text;
     }
 
-    @Override
-    public boolean getDropped() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void toggleDropped() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public ArrayList<Button> getDropDown() {
-        // TODO Auto-generated method stub
-        return null;
+        return objects;
     }
 
+    public void toggleDropped() {
+        if(dropped)
+            dropped = false;
+        else
+            dropped = true;
+    }
+
+    public boolean getDropped() {
+        return dropped;
+    }
 }
 

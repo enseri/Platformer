@@ -46,7 +46,7 @@ public class MENU{
                 g.setColor(Color.white);
                 g.drawString(object.getText(),
                         object.getData()[0]
-                                + object.getData()[2] / 2 - (int) (object.getText().length() * 3.5),
+                                + object.getData()[2] / 2 - (int) (object.getText().length() * 3.25),
                         object.getData()[1]
                                 + (object.getData()[3] / 2));
                 g.setColor(origin);

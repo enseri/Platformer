@@ -23,7 +23,7 @@ public class MAPSELECTION{
     public void run() {
         if(objects.size() == 0) {
             new Generator(gameScreen);
-            File[] arr = Generator.getAllFiles();
+            File[] arr = Generator.getAllFiles("Saves");
             int x = 0, y = 0;
             for(int i = 0; i != arr.length; i++) {
                 objects.add(new Button(false, x, y, 200, 100, "background0.jpg", arr[i].getName().substring(0, arr[i].getName().length() - 4)));
@@ -46,8 +46,8 @@ public class MAPSELECTION{
             g.drawRect(x, y, 200, 100);
             g.setColor(origin);
             String text = objects.get(i).getText();
-            g.setColor(Color.BLUE);
-            g.drawString(text, x + 100 - (int) (text.length() * 3.5), y + 60);
+            g.setColor(Color.black);
+            g.drawString(text, x + 100 - (int) (text.length() * 3.25), y + 60);
             g.setColor(origin);
         }
         g.setColor(Color.red);

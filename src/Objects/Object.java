@@ -1,5 +1,7 @@
 package Objects;
 
+import java.util.ArrayList;
+
 import Game.GameScreen;
 
 public abstract class Object {
@@ -16,4 +18,7 @@ public abstract class Object {
     public abstract void update();
     public abstract boolean shiftAble();
     public abstract String getText();
+    public abstract ArrayList<Button> getDropDown();
+    public abstract boolean getDropped();
+    public abstract void toggleDropped();
 }
