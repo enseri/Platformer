@@ -35,7 +35,6 @@ public class GameScreen extends JPanel {
         new Generator(this).loadMap("default");
         camera = new Camera(0, 0, mapData.get(2), mapData.get(3), this);
         setPreferredSize(new Dimension(camera.getData()[2], camera.getData()[3]));
-
     }
 
     @Override
@@ -152,5 +151,16 @@ public class GameScreen extends JPanel {
         while (objects.size() != 0) {
             objects.remove(0);
         }
+    }
+
+    public void setDefault() {
+        render = new Render(this);
+        mapData.set(0, 1200);
+        mapData.set(1, 300);
+        mapData.set(2, 600);
+        mapData.set(3, 300);
+        camera = new Camera(0, 0, mapData.get(2), mapData.get(3), this);
+        game.setSize(mapData.get(2), mapData.get(3));
+        setSize(mapData.get(2), mapData.get(3));
     }
 }

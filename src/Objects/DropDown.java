@@ -98,5 +98,21 @@ public class DropDown extends Object {
     public boolean getDropped() {
         return dropped;
     }
+
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+        
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+        
+    }
+
+    public Object copy() {
+        return new DropDown(objects, x, y, width, height, image, text);
+    }
 }
 

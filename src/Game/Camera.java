@@ -3,7 +3,7 @@ package Game;
 public class Camera {
     private int x, y, width, height;
     private GameScreen gameScreen;
-    Camera(int x, int y, int width, int height, GameScreen gameScreen) {
+    public Camera(int x, int y, int width, int height, GameScreen gameScreen) {
         this.x = x;
         this.y = y;
         this.width = width;

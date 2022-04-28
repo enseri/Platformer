@@ -98,5 +98,20 @@ public class Button extends Object {
         return null;
     }
 
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+        
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+        
+    }
+    public Object copy() {
+        return new Button(false, x, y, width, height, image, text);
+    }
+
 }
 

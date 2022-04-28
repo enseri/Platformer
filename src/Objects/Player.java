@@ -74,7 +74,7 @@ public class Player extends Object {
             if (gameScreen.objects.get(i).getCollision() && this != gameScreen.objects.get(i)) {
                 if (y + height == gameScreen.objects.get(i).getData()[1]) {
                     for (int x1 = x; x1 != x + width; x1++) {
-                        if (x < gameScreen.objects.get(i).getData()[0] + gameScreen.objects.get(i).getData()[2] && x >= gameScreen.objects.get(i).getData()[0]) {
+                        if (x1 < gameScreen.objects.get(i).getData()[0] + gameScreen.objects.get(i).getData()[2] && x1 >= gameScreen.objects.get(i).getData()[0]) {
                             updated = true;
                             touchingGround = true;
                             break;
@@ -126,7 +126,6 @@ public class Player extends Object {
 
     @Override
     public void setX(int x) {
-        System.out.println("moved");
         this.x = x;
     }
 
@@ -175,6 +174,22 @@ public class Player extends Object {
     public ArrayList<Button> getDropDown() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+        
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+        
+    }
+
+    public Object copy() {
+        return new Player(collision, x, y, width, height, xVelocity, yVelocity, image, gameScreen);
     }
 
 }

@@ -12,6 +12,8 @@ public abstract class Object {
     public abstract String getImage();
     public abstract void setX(int x);
     public abstract void setY(int y);
+    public abstract void setWidth(int width);
+    public abstract void setHeight(int height);
     public abstract void setXVelocity(int xVelocity);
     public abstract void setYVelocity(int yVelocity);
     public abstract void jump();
@@ -21,4 +23,5 @@ public abstract class Object {
     public abstract ArrayList<Button> getDropDown();
     public abstract boolean getDropped();
     public abstract void toggleDropped();
+    public abstract Object copy();
 }

@@ -1,5 +1,7 @@
 package States;
 
+import Game.GameScreen;
+
 public enum GameStates {
     MENU,
     MAPSELECTION,
