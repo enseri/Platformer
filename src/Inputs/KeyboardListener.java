@@ -24,7 +24,7 @@ class RegisterThread extends Thread {
                 || GameStates.getGameState().equals("CREATING"))) {
             System.out.print("");
             if (key == 27) {
-                gameScreen.camera.reset();
+                gameScreen.setDefault();
                 GameStates.setGameState("MENU");
             }
             if (key == 37 && GameStates.getGameState().equals("PLAYING"))

@@ -8,6 +8,7 @@ import Objects.Border;
 import Objects.Object;
 import Objects.Flag;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -126,6 +127,11 @@ public class Generator {
             }
             if (i < data.length())
                 currentData += data.substring(i, i + 1);
+        }
+        if (gameScreen.camera != null) {
+            gameScreen.camera.setSize(gameScreen.mapData.get(2), gameScreen.mapData.get(3));
+            gameScreen.setSize(new Dimension(gameScreen.mapData.get(2), gameScreen.mapData.get(3)));
+            gameScreen.game.setSize(new Dimension(gameScreen.mapData.get(2), gameScreen.mapData.get(3)));
         }
     }
 

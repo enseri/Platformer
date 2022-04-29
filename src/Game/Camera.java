@@ -56,4 +56,9 @@ public class Camera {
     public int[] getData() {
         return new int[]{x, y, width, height};
     }
+
+    public void setSize(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
 }
