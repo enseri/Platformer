@@ -22,6 +22,7 @@ public class MENU{
     }
 
     public void run() {
+        g.drawImage(new ImageIcon("src/Images/menu.jpg").getImage(), 0, 0, null);
         renderButtons();
     }
 
