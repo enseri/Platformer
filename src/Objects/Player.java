@@ -28,7 +28,7 @@ public class Player extends Object {
     public void velocityShift(GameScreen gameScreen) {
         if (xVelocity != 0 || yVelocity != 0) {
             double ROD = .50;
-            double PPV = 2.5;
+            double PPV = ((height + width) / 6) / 10;
             double PTMPM = .20;
             int newX = x;
             int newY = y;

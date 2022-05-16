@@ -37,6 +37,7 @@ public class CREATING {
 
     public void run(Graphics g) {
         if (mode == 0) {
+            
             if (firstRun) {
                 for (int i = 0; i != 4; i++) {
                     mapData.add(0);
@@ -317,8 +318,8 @@ public class CREATING {
                 case "left":
                     tempX = data[0] - data[2];
                     while (tempX >= 0) {
-                        if (futureConflict(createdObject, temp, data[0] - data[2], data[1], data[2], data[3]) == null) {
-                            temp.setX(data[0] - data[2]);
+                        if (futureConflict(createdObject, temp, tempX, data[1], data[2], data[3]) == null) {
+                            temp.setX(tempX);
                             createdObject.add(temp);
                             break;
                         }
