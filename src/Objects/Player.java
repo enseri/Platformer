@@ -29,6 +29,8 @@ public class Player extends Object {
         if (xVelocity != 0 || yVelocity != 0) {
             double ROD = .50;
             double PPV = ((height + width) / 6) / 10;
+            if(PPV < .5)
+                PPV = .5;
             double PTMPM = .20;
             int newX = x;
             int newY = y;
