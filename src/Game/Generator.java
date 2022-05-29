@@ -130,8 +130,8 @@ public class Generator {
         }
         if (gameScreen.camera != null) {
             gameScreen.camera.setSize(gameScreen.mapData.get(2), gameScreen.mapData.get(3));
-            gameScreen.setSize(new Dimension(gameScreen.mapData.get(2), gameScreen.mapData.get(3)));
-            gameScreen.game.setSize(new Dimension(gameScreen.mapData.get(2), gameScreen.mapData.get(3)));
+            gameScreen.setPreferredSize(new Dimension(gameScreen.mapData.get(2), gameScreen.mapData.get(3)));
+            gameScreen.game.pack();
         }
     }
 

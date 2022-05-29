@@ -160,7 +160,7 @@ public class GameScreen extends JPanel {
         mapData.set(2, 600);
         mapData.set(3, 300);
         camera = new Camera(0, 0, mapData.get(2), mapData.get(3), this);
-        game.setSize(mapData.get(2), mapData.get(3));
-        setSize(mapData.get(2), mapData.get(3));
+        setPreferredSize(new Dimension(mapData.get(2), mapData.get(3)));
+        game.pack();
     }
 }

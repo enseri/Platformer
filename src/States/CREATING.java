@@ -7,16 +7,14 @@ import Game.Generator;
 import Objects.Object;
 import Objects.Border;
 import Objects.Button;
-import java.awt.Graphics;
-import java.awt.Image;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
 import javax.lang.model.util.ElementScanner6;
 import javax.swing.ImageIcon;
-
-import java.awt.Color;
 
 public class CREATING {
     public ArrayList<Object> objects = new ArrayList<>();
@@ -375,10 +373,10 @@ public class CREATING {
             createdObject.add(new Border(true, mapData.get(0), 0, 1, mapData.get(1), "border0.jpg"));
             createdObject.add(new Border(true, 0, mapData.get(1), mapData.get(0), 1, "border0.jpg"));
             createdObject.add(new Border(true, 0, 0, 1, mapData.get(1), "border0.jpg"));
-            gameScreen.game.setSize(mapData.get(0), mapData.get(1));
-            gameScreen.setSize(mapData.get(0), mapData.get(1));
+            //gameScreen.game.setSize(mapData.get(0), mapData.get(1));
+            gameScreen.setPreferredSize(new Dimension(mapData.get(0), mapData.get(1)));
             gameScreen.camera = new Camera(0, 0, mapData.get(2), mapData.get(3), gameScreen);
-            // gameScreen.game.pack();
+            gameScreen.game.pack();
         }
         objects.clear();
         mode++;

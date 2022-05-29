@@ -114,6 +114,7 @@ class TempUpdateThread extends Thread {
         if (!object.shiftAble())
             running = false;
         while (running) {
+            game.pack();
             assert GameStates.getGameState() != null;
             if (GameStates.getGameState().equals("PLAYING")) {
                 if (System.nanoTime() - lastUpdate >= 1000000000.0 / game.u) {
